@@ -18,21 +18,31 @@ export default {
   },
   methods: {
     search(){
-      let endpoint = store.apiURL;
+      let moviesEndpoint = store.apiURLMovies;
+      let tvSeriesEndpoint= store.apiURLTvSeries;
 
-      if (store.searchMovie !== "") {
-        endpoint = `${store.apiURL}${store.searchMovie}`
-        console.log(endpoint);
+      if (store.searchInput !== "") {
+        moviesEndpoint = `${moviesEndpoint}${store.searchInput}`
+        tvSeriesEndpoint = `${tvSeriesEndpoint}${store.searchInput}`
+        console.log(moviesEndpoint);
+        console.log(tvSeriesEndpoint);
       }
 
-      axios.get(endpoint)
+      axios.get(moviesEndpoint)
       .then(res => {
         console.log(res.data.results);
         store.movieList = res.data.results;
-        store.searchMovie = '';
+        store.searchInput = '';
       })
       .catch(err => {
           console.log(err);
+      })
+
+      axios.get(tvSeriesEndpoint)
+      .then(res => {
+        console.log(res.data.results);
+        store.tvSeriesList = res.data.results;
+        store.searchInput = '';
       })
 
     },
@@ -64,7 +74,6 @@ export default {
         vi: 'vn',   // Vietnamita
         id: 'id',   // Indonesiano
         ms: 'my',   // Malese
-        // Aggiungere altre mappature necessarie
       };
       return languageMap[language] || 'un'; // 'un' per mostrare un'icona di fallback
     }
@@ -79,14 +88,16 @@ export default {
 
   <div class="searchbar">
     <form action="#">
-      <input type="text" v-model="store.searchMovie" @key.enter="search()">
+      <input type="text" v-model="store.searchInput" @key.enter="search()">
       <button @click.prevent="search()">Search</button>
     </form>
   </div>
 
   <!-- <span class="fi fi-gr"></span>  -->
 
-  <ul v-for="(movie, i) in store.movieList" :key="i">
+  <div>
+    <h2>MOVIES</h2>
+    <ul v-for="(movie, i) in store.movieList" :key="i">
       <li>{{ movie.title }}</li>
       <li>{{ movie.original_title }}</li>
       <li>
@@ -94,6 +105,23 @@ export default {
       </li>
       <li> {{ movie.vote_average }} </li>
     </ul>
+
+  </div>
+
+  <div>
+    <h2>TV SERIES</h2>
+    <ul v-for="(tvSeries, i) in store.tvSeriesList" :key="i">
+      <li>{{ tvSeries.name }}</li>
+      <li>{{ tvSeries.original_name }}</li>
+      <li>
+        <span :class="`fi fi-${getFlagClass(tvSeries.original_language)}`"></span>
+      </li>
+      <li> {{ tvSeries.vote_average }} </li>
+    </ul>
+
+  </div>
+
+
 
   
 </template>
