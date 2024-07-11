@@ -1,0 +1,15 @@
+// inclusione variabili
+@use './partials/variables' as *;
+
+// inclusione font
+@import '@fontsource/bebas-neue';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    font-family: $main-font;
+}
