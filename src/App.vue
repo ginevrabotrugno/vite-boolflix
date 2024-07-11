@@ -5,8 +5,8 @@ import axios from 'axios';
 // import dello store
 import {store} from './store';
 
-// import flag icon
-// import 'flag-icon-css/css/flag-icon.min.css';
+// import flag icons
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 
 export default {
@@ -39,10 +39,31 @@ export default {
     getFlagClass(language) {
       // Mappa delle lingue alle classi delle bandiere
       const languageMap = {
-        en: 'us',
-        it: 'it',
-        fr: 'fr',
-        es: 'es',
+        en: 'us',   // Inglese
+        it: 'it',   // Italiano
+        fr: 'fr',   // Francese
+        es: 'es',   // Spagnolo
+        de: 'de',   // Tedesco
+        ru: 'ru',   // Russo
+        ja: 'jp',   // Giapponese
+        ko: 'kr',   // Coreano
+        zh: 'cn',   // Cinese
+        pt: 'pt',   // Portoghese
+        ar: 'sa',   // Arabo
+        hi: 'in',   // Hindi
+        nl: 'nl',   // Olandese
+        sv: 'se',   // Svedese
+        da: 'dk',   // Danese
+        fi: 'fi',   // Finlandese
+        no: 'no',   // Norvegese
+        pl: 'pl',   // Polacco
+        tr: 'tr',   // Turco
+        el: 'gr',   // Greco
+        he: 'il',   // Ebraico
+        th: 'th',   // Thailandese
+        vi: 'vn',   // Vietnamita
+        id: 'id',   // Indonesiano
+        ms: 'my',   // Malese
         // Aggiungere altre mappature necessarie
       };
       return languageMap[language] || 'un'; // 'un' per mostrare un'icona di fallback
@@ -63,12 +84,13 @@ export default {
     </form>
   </div>
 
+  <!-- <span class="fi fi-gr"></span>  -->
+
   <ul v-for="(movie, i) in store.movieList" :key="i">
       <li>{{ movie.title }}</li>
       <li>{{ movie.original_title }}</li>
-      <li> 
-        <span :class="`flag-icon flag-icon-${getFlagClass(movie.original_language)} flag-icon-squared`"></span>
-        {{ movie.original_language }}
+      <li>
+        <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span>
       </li>
       <li> {{ movie.vote_average }} </li>
     </ul>
@@ -77,6 +99,8 @@ export default {
 </template>
 
 <style lang="scss">
-@use './style/general.scss'
+@use './style/general.scss';
+
+
 
 </style>
