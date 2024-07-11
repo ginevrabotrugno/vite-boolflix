@@ -98,6 +98,9 @@ export default {
   <div>
     <h2>MOVIES</h2>
     <ul v-for="(movie, i) in store.movieList" :key="i">
+      <li class="thumb">
+        <img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title">
+      </li>
       <li>{{ movie.title }}</li>
       <li>{{ movie.original_title }}</li>
       <li>
@@ -111,6 +114,9 @@ export default {
   <div>
     <h2>TV SERIES</h2>
     <ul v-for="(tvSeries, i) in store.tvSeriesList" :key="i">
+      <li class="thumb">
+        <img :src="`https://image.tmdb.org/t/p/w342${tvSeries.poster_path}`" :alt="tvSeries.name">
+      </li>
       <li>{{ tvSeries.name }}</li>
       <li>{{ tvSeries.original_name }}</li>
       <li>
@@ -128,6 +134,10 @@ export default {
 
 <style lang="scss">
 @use './style/general.scss';
+
+.thumb {
+  width: 150px;
+}
 
 
 
