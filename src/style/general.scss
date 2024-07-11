@@ -1,9 +1,6 @@
 // inclusione variabili
 @use './partials/variables' as *;
 
-// inclusione font
-@import '@fontsource/bebas-neue';
-
 * {
     margin: 0;
     padding: 0;
@@ -11,5 +8,10 @@
 }
 
 :root {
-    font-family: $main-font;
+    font-family: sans-serif;
+}
+
+ul {
+    list-style: none;
+    margin-top: 20px;
 }
