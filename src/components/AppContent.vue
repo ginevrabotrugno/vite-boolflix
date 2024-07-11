@@ -40,6 +40,9 @@ export default {
             ms: 'my',   // Malese
         };
         return languageMap[language] || 'un'; // 'un' per mostrare un'icona di fallback
+        },
+        transformDecimalToInt(num) {
+            return Math.ceil((num / 10) * 5);
         }
 
     }
@@ -65,7 +68,7 @@ export default {
                     <li>
                         <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span>
                     </li>
-                    <li><strong>Voto: </strong> {{ movie.vote_average }} </li>
+                    <li><strong>Voto: </strong> {{ transformDecimalToInt(movie.vote_average) }} </li>
                 </ul>
             </div>
 

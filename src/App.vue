@@ -66,7 +66,6 @@ export default {
   <AppHeader @search="searchTitle"/>
 
   <main>
-
     <AppContent/>
 
   </main>
