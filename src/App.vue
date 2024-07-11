@@ -8,16 +8,22 @@ import {store} from './store';
 // import flag icons
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 
+// import components
+import AppHeader from './components/AppHeader.vue';
+
 
 export default {
   name: "App",
+  components: {
+    AppHeader
+  },
   data() {
     return {
       store
     }
   },
   methods: {
-    search(){
+    searchTitle(){
       let moviesEndpoint = store.apiURLMovies;
       let tvSeriesEndpoint= store.apiURLTvSeries;
 
@@ -79,61 +85,56 @@ export default {
     }
   },
   created() {
-    this.search();
+    this.searchTitle();
   }
 }
 </script>
 
 <template>
 
-  <div class="searchbar">
-    <form action="#">
-      <input type="text" v-model="store.searchInput" @key.enter="search()">
-      <button @click.prevent="search()">Search</button>
-    </form>
-  </div>
+  <AppHeader @search="searchTitle"/>
 
-  <!-- <span class="fi fi-gr"></span>  -->
+  <main>
 
-  <div>
-    <h2>MOVIES</h2>
-    <ul v-for="(movie, i) in store.movieList" :key="i">
-      <li class="thumb">
-        <img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title">
-      </li>
-      <li>{{ movie.title }}</li>
-      <li>{{ movie.original_title }}</li>
-      <li>
-        <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span>
-      </li>
-      <li> {{ movie.vote_average }} </li>
-    </ul>
+    <div>
+      <h2>MOVIES</h2>
+      <ul v-for="(movie, i) in store.movieList" :key="i">
+        <li class="thumb">
+          <img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title">
+        </li>
+        <li>{{ movie.title }}</li>
+        <li>{{ movie.original_title }}</li>
+        <li>
+          <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span>
+        </li>
+        <li> {{ movie.vote_average }} </li>
+      </ul>
 
-  </div>
+    </div>
 
-  <div>
-    <h2>TV SERIES</h2>
-    <ul v-for="(tvSeries, i) in store.tvSeriesList" :key="i">
-      <li class="thumb">
-        <img :src="`https://image.tmdb.org/t/p/w342${tvSeries.poster_path}`" :alt="tvSeries.name">
-      </li>
-      <li>{{ tvSeries.name }}</li>
-      <li>{{ tvSeries.original_name }}</li>
-      <li>
-        <span :class="`fi fi-${getFlagClass(tvSeries.original_language)}`"></span>
-      </li>
-      <li> {{ tvSeries.vote_average }} </li>
-    </ul>
+    <div>
+      <h2>TV SERIES</h2>
+      <ul v-for="(tvSeries, i) in store.tvSeriesList" :key="i">
+        <li class="thumb">
+          <img :src="`https://image.tmdb.org/t/p/w342${tvSeries.poster_path}`" :alt="tvSeries.name">
+        </li>
+        <li>{{ tvSeries.name }}</li>
+        <li>{{ tvSeries.original_name }}</li>
+        <li>
+          <span :class="`fi fi-${getFlagClass(tvSeries.original_language)}`"></span>
+        </li>
+        <li> {{ tvSeries.vote_average }} </li>
+      </ul>
 
-  </div>
+    </div>
 
-
+  </main>
 
   
 </template>
 
 <style lang="scss">
-@use './style/general.scss';
+@use './style/general.scss' as *;
 
 .thumb {
   width: 150px;
