@@ -51,20 +51,24 @@ export default {
            
         <h2>MOVIES</h2>
 
-        <div class="thumb" v-for="(movie, i) in store.movieList" :key="i">
+        <div class="container">
 
-            <div>
-                <img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title">
+            <div class="thumb" v-for="(movie, i) in store.movieList" :key="i">
+
+                <div>
+                    <img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title">
+                </div>
+
+                <ul class="info">
+                    <li><strong>Titolo: </strong>{{ movie.title }}</li>
+                    <li><strong>Titolo Originale: </strong>{{ movie.original_title }}</li>
+                    <li>
+                        <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span>
+                    </li>
+                    <li><strong>Voto: </strong> {{ movie.vote_average }} </li>
+                </ul>
             </div>
 
-            <ul class="info">
-                <li><strong>Titolo: </strong>{{ movie.title }}</li>
-                <li><strong>Titolo Originale: </strong>{{ movie.original_title }}</li>
-                <li>
-                    <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span>
-                </li>
-                <li><strong>Voto: </strong> {{ movie.vote_average }} </li>
-            </ul>
         </div>
 
     </section>
@@ -73,18 +77,22 @@ export default {
 
         <h2>TV SERIES</h2>
 
-        <div class="thumb" v-for="(tvSeries, i) in store.tvSeriesList" :key="i">
+        <div class="container">
 
-            <img :src="`https://image.tmdb.org/t/p/w342${tvSeries.poster_path}`" :alt="tvSeries.name">
+            <div class="thumb" v-for="(tvSeries, i) in store.tvSeriesList" :key="i">
 
-            <ul class="info">
-                <li><strong>Titolo:</strong>{{ tvSeries.name }}</li>
-                <li><strong>Titolo Originale: </strong>{{ tvSeries.original_name }}</li>
-                <li>
-                    <span :class="`fi fi-${getFlagClass(tvSeries.original_language)}`"></span>
-                </li>
-                <li><strong>Voto: </strong> {{ tvSeries.vote_average }} </li>
-            </ul>
+                <img :src="`https://image.tmdb.org/t/p/w342${tvSeries.poster_path}`" :alt="tvSeries.name">
+
+                <ul class="info">
+                    <li><strong>Titolo:</strong>{{ tvSeries.name }}</li>
+                    <li><strong>Titolo Originale: </strong>{{ tvSeries.original_name }}</li>
+                    <li>
+                        <span :class="`fi fi-${getFlagClass(tvSeries.original_language)}`"></span>
+                    </li>
+                    <li><strong>Voto: </strong> {{ tvSeries.vote_average }} </li>
+                </ul>
+
+            </div>
 
         </div>
 
@@ -94,6 +102,19 @@ export default {
 
 <style scoped lang="scss">
 @use '../style/partials/variables' as *;
+
+h2 {
+    margin: 25px;
+    font-size: 30px;
+}
+
+.container {
+    margin-top: 40px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 
 </style>

@@ -78,7 +78,8 @@ export default {
 @use './style/general.scss' as *;
 
 .thumb {
-  width: 150px;
+  width: 200px;
+  margin-bottom: 25px;
 }
 
 
