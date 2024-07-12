@@ -17,6 +17,14 @@ export default {
             store,
         }
     },
+    computed: {
+        resultMovieNum(){
+            return store.movieList.length
+        },
+        resultTvSeriesNum(){
+            return store.tvSeriesList.length
+        },
+    }
 }
 </script>
 
@@ -24,6 +32,8 @@ export default {
     <section>
            
         <h2>MOVIES</h2>
+
+        <h3>Found <span class="counter">{{resultMovieNum}}</span> results</h3>
 
         <div class="container">
 
@@ -40,6 +50,8 @@ export default {
     <section>
 
         <h2>TV SERIES</h2>
+
+        <h3>Found <span class="counter">{{resultTvSeriesNum}}</span> results</h3>
 
         <div class="container">
 
@@ -61,6 +73,14 @@ export default {
 h2 {
     margin: 25px;
     font-size: 30px;
+}
+
+h3 {
+    margin-left: 50px;
+}
+
+.counter {
+    color: $red;
 }
 
 .container {
