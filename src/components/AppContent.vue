@@ -6,7 +6,7 @@ export default {
     name: 'Appcontent',
     data() {
         return {
-            store
+            store,
         }
     },
     methods: {
@@ -43,7 +43,11 @@ export default {
         },
         transformDecimalToInt(num) {
             return Math.ceil((num / 10) * 5);
-        }
+        }, 
+        generateStars(vote) {
+        const starCount = this.transformDecimalToInt(vote);
+        return Array(starCount).fill('fa-star');
+    }      
 
     }
 }
@@ -68,7 +72,10 @@ export default {
                     <li>
                         <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span>
                     </li>
-                    <li><strong>Voto: </strong> {{ transformDecimalToInt(movie.vote_average) }} </li>
+                    <li>
+                        <strong>Voto: </strong> 
+                        <span v-for="(star, index) in generateStars(movie.vote_average)" :key="index" class="fa-solid" :class="star"></span>
+                    </li>
                 </ul>
             </div>
 
@@ -92,7 +99,10 @@ export default {
                     <li>
                         <span :class="`fi fi-${getFlagClass(tvSeries.original_language)}`"></span>
                     </li>
-                    <li><strong>Voto: </strong> {{ tvSeries.vote_average }} </li>
+                    <li>
+                        <strong>Voto: </strong> 
+                        <span v-for="(star, index) in generateStars(tvSeries.vote_average)" :key="index" class="fa-solid" :class="star"></span>                    
+                    </li>
                 </ul>
 
             </div>
