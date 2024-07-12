@@ -48,24 +48,66 @@ export default {
 
 <template>
 
-    <img :src="`https://image.tmdb.org/t/p/w342${infoMovie.poster_path}`" :alt="infoMovie.title">
+    <div class="card-container" :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/w342${infoMovie.poster_path})` }">
+        <div class="info-box">
+            <ul class="info">
+                <li><strong>Titolo: </strong>{{ infoMovie.title }}</li>
+                <li><strong>Titolo Originale: </strong>{{ infoMovie.original_title }}</li>
+                <li>
+                    <span :class="`fi fi-${getFlagClass(infoMovie.original_language)}`"></span>
+                </li>
+                <li>
+                    <strong>Voto: </strong> 
+                    <span v-for="(star, index) in generateStars(infoMovie.vote_average)" :key="index" class="fa-solid" :class="star"></span>
+                </li>
+                <li> <strong>Overview: </strong>{{ infoMovie.overview }}</li>
 
-    <ul class="info">
-        <li><strong>Titolo: </strong>{{ infoMovie.title }}</li>
-        <li><strong>Titolo Originale: </strong>{{ infoMovie.original_title }}</li>
-        <li>
-            <span :class="`fi fi-${getFlagClass(infoMovie.original_language)}`"></span>
-        </li>
-        <li>
-            <strong>Voto: </strong> 
-            <span v-for="(star, index) in generateStars(infoMovie.vote_average)" :key="index" class="fa-solid" :class="star"></span>
-        </li>
-        <li> <strong>Overview: </strong>{{ infoMovie.overview }}</li>
+            </ul>
+        </div>
+     </div>
 
-    </ul>
 
 </template>
 
 <style scoped lang="scss">
+    .card-container {
+    position: relative;
+    width: 100%;  
+    aspect-ratio: 2/3;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    
+    &:hover .info-box {
+        opacity: 1;
+    }
+}
 
+.info-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+    opacity: 0;
+}
+
+.info {
+    
+    li {
+        margin-bottom: 10px;
+        
+        strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .fa-star {
+            color: gold;
+        }
+    }
+}
 </style>

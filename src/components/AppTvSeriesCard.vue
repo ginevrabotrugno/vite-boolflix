@@ -46,7 +46,7 @@ export default {
 }
 </script>
 
-<template>
+<!-- <template>
 
     <img :src="`https://image.tmdb.org/t/p/w342${infoTvSeries.poster_path}`" :alt="infoTvSeries.name">
 
@@ -64,8 +64,66 @@ export default {
     </ul>
 
 
+</template> -->
+
+<template>
+    <div class="card-container" :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/w342${infoTvSeries.poster_path})` }">
+        <div class="info-box">
+            <ul class="info">
+                <li><strong>Titolo:</strong>{{ infoTvSeries.name }}</li>
+                <li><strong>Titolo Originale: </strong>{{ infoTvSeries.original_name }}</li>
+                <li>
+                    <span :class="`fi fi-${getFlagClass(infoTvSeries.original_language)}`"></span>
+                </li>
+                <li>
+                    <strong>Voto: </strong> 
+                    <span v-for="(star, index) in generateStars(infoTvSeries.vote_average)" :key="index" class="fa-solid" :class="star"></span>                    
+                </li>
+                <li><strong>Overview: </strong>{{ infoTvSeries.overview }}</li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <style scoped lang="scss">
+.card-container {
+    position: relative;
+    width: 100%;  
+    aspect-ratio: 2/3;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    
+    &:hover .info-box {
+        opacity: 1;
+    }
+}
 
+.info-box {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+    opacity: 0;
+}
+
+.info {
+    
+    li {
+        margin-bottom: 10px;
+        
+        strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .fa-star {
+            color: gold;
+        }
+    }
+}
 </style>
