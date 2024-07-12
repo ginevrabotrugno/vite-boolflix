@@ -2,54 +2,21 @@
 // import dello store
 import {store} from '../store';
 
+// import componenti
+import AppMovieCard from './AppMovieCard.vue';
+import AppTvSeriesCard from './AppTvSeriesCard.vue';
+
 export default {
     name: 'Appcontent',
+    components: {
+        AppMovieCard,
+        AppTvSeriesCard,
+    },
     data() {
         return {
             store,
         }
     },
-    methods: {
-        getFlagClass(language) {
-        // Mappa delle lingue alle classi delle bandiere
-        const languageMap = {
-            en: 'us',   // Inglese
-            it: 'it',   // Italiano
-            fr: 'fr',   // Francese
-            es: 'es',   // Spagnolo
-            de: 'de',   // Tedesco
-            ru: 'ru',   // Russo
-            ja: 'jp',   // Giapponese
-            ko: 'kr',   // Coreano
-            zh: 'cn',   // Cinese
-            pt: 'pt',   // Portoghese
-            ar: 'sa',   // Arabo
-            hi: 'in',   // Hindi
-            nl: 'nl',   // Olandese
-            sv: 'se',   // Svedese
-            da: 'dk',   // Danese
-            fi: 'fi',   // Finlandese
-            no: 'no',   // Norvegese
-            pl: 'pl',   // Polacco
-            tr: 'tr',   // Turco
-            el: 'gr',   // Greco
-            he: 'il',   // Ebraico
-            th: 'th',   // Thailandese
-            vi: 'vn',   // Vietnamita
-            id: 'id',   // Indonesiano
-            ms: 'my',   // Malese
-        };
-        return languageMap[language] || 'un'; // 'un' per mostrare un'icona di fallback
-        },
-        transformDecimalToInt(num) {
-            return Math.ceil((num / 10) * 5);
-        }, 
-        generateStars(vote) {
-        const starCount = this.transformDecimalToInt(vote);
-        return Array(starCount).fill('fa-star');
-    }      
-
-    }
 }
 </script>
 
@@ -62,21 +29,8 @@ export default {
 
             <div class="thumb" v-for="(movie, i) in store.movieList" :key="i">
 
-                <div>
-                    <img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title">
-                </div>
+                <AppMovieCard :infoMovie="movie"/>
 
-                <ul class="info">
-                    <li><strong>Titolo: </strong>{{ movie.title }}</li>
-                    <li><strong>Titolo Originale: </strong>{{ movie.original_title }}</li>
-                    <li>
-                        <span :class="`fi fi-${getFlagClass(movie.original_language)}`"></span>
-                    </li>
-                    <li>
-                        <strong>Voto: </strong> 
-                        <span v-for="(star, index) in generateStars(movie.vote_average)" :key="index" class="fa-solid" :class="star"></span>
-                    </li>
-                </ul>
             </div>
 
         </div>
@@ -91,19 +45,7 @@ export default {
 
             <div class="thumb" v-for="(tvSeries, i) in store.tvSeriesList" :key="i">
 
-                <img :src="`https://image.tmdb.org/t/p/w342${tvSeries.poster_path}`" :alt="tvSeries.name">
-
-                <ul class="info">
-                    <li><strong>Titolo:</strong>{{ tvSeries.name }}</li>
-                    <li><strong>Titolo Originale: </strong>{{ tvSeries.original_name }}</li>
-                    <li>
-                        <span :class="`fi fi-${getFlagClass(tvSeries.original_language)}`"></span>
-                    </li>
-                    <li>
-                        <strong>Voto: </strong> 
-                        <span v-for="(star, index) in generateStars(tvSeries.vote_average)" :key="index" class="fa-solid" :class="star"></span>                    
-                    </li>
-                </ul>
+                <AppTvSeriesCard :infoTvSeries="tvSeries" /> 
 
             </div>
 
