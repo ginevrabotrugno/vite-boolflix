@@ -19,12 +19,12 @@ export default {
                 <img src="../assets/logo-boolflix.png" alt="logo">
             </div>
 
-        <div class="searchbar">
-            <form action="#">
-                <input type="text" v-model="store.searchInput" @key.enter="search()">
-                <button @click.prevent="$emit('search')">Search</button>
-            </form>
-        </div>
+            <div class="searchbar">
+                <form action="#">
+                    <input type="text" v-model="store.searchInput" @key.enter="search()">
+                    <button @click.prevent="$emit('search')">Search</button>
+                </form>
+            </div>
 
         </div>
 
@@ -38,6 +38,7 @@ export default {
 header {
     background-color: #000000;
     padding: 0 15px;
+    
     .container {
         display: flex;
         justify-content: space-between;

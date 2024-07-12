@@ -11,6 +11,7 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 // import components
 import AppHeader from './components/AppHeader.vue';
 import AppContent from './components/AppContent.vue';
+import LandingPage from './components/LandingPage.vue';
 
 
 export default {
@@ -18,6 +19,7 @@ export default {
   components: {
     AppHeader,
     AppContent,
+    LandingPage
   },
   data() {
     return {
@@ -32,8 +34,8 @@ export default {
       if (store.searchInput !== "") {
         moviesEndpoint = `${moviesEndpoint}${store.searchInput}`
         tvSeriesEndpoint = `${tvSeriesEndpoint}${store.searchInput}`
-        console.log(moviesEndpoint);
-        console.log(tvSeriesEndpoint);
+        // console.log(moviesEndpoint);
+        // console.log(tvSeriesEndpoint);
       }
 
       axios.get(moviesEndpoint)
@@ -52,23 +54,33 @@ export default {
         store.tvSeriesList = res.data.results;
         store.searchInput = '';
       })
+      .catch(err => {
+          console.log(err);
+      })
+
+      store.isFirstSearch = false;
 
     },
   },
-  created() {
-    this.searchTitle();
-  }
 }
 </script>
 
 <template>
 
-  <AppHeader @search="searchTitle"/>
+  <LandingPage @search="searchTitle" v-if="store.isFirstSearch" />
 
-  <main>
-    <AppContent/>
+  <div class="show" v-else>
 
-  </main>
+    <AppHeader @search="searchTitle"/>
+
+    <main>
+      
+      <AppContent/>
+
+    </main>
+
+  
+  </div>
 
   
 </template>

@@ -88,33 +88,33 @@ export default {
     &:hover .info-box {
         opacity: 1;
     }
-}
+    }
 
-.info-box {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 20px;
-    overflow-y: auto;
-    opacity: 0;
-}
+    .info-box {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 20px;
+        overflow-y: auto;
+        opacity: 0;
+    }
 
-.info {
-    
-    li {
-        margin-bottom: 10px;
+    .info {
         
-        strong {
-            display: block;
-            margin-bottom: 5px;
-        }
-        
-        .fa-star {
-            color: gold;
+        li {
+            margin-bottom: 10px;
+            
+            strong {
+                display: block;
+                margin-bottom: 5px;
+            }
+            
+            .fa-star {
+                color: gold;
+            }
         }
     }
-}
 </style>
