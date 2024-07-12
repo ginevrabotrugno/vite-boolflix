@@ -1,4 +1,6 @@
 <script>
+import fallbackPoster from '../assets/fallback-poster.png';
+
 export default {
     name: 'AppTvSeriesCard,',
     props: ['infoTvSeries'],
@@ -40,34 +42,19 @@ export default {
         generateStars(vote) {
         const starCount = this.transformDecimalToInt(vote);
         return Array(starCount).fill('fa-star');
-        }      
+        },
+        getBackgroundImage() {
+            return this.infoTvSeries.poster_path 
+                ? `url(https://image.tmdb.org/t/p/w342${this.infoTvSeries.poster_path})`
+                : `url(${fallbackPoster})`;
+        }         
 
     }
 }
 </script>
 
-<!-- <template>
-
-    <img :src="`https://image.tmdb.org/t/p/w342${infoTvSeries.poster_path}`" :alt="infoTvSeries.name">
-
-    <ul class="info">
-        <li><strong>Titolo:</strong>{{ infoTvSeries.name }}</li>
-        <li><strong>Titolo Originale: </strong>{{ infoTvSeries.original_name }}</li>
-        <li>
-            <span :class="`fi fi-${getFlagClass(infoTvSeries.original_language)}`"></span>
-        </li>
-        <li>
-            <strong>Voto: </strong> 
-            <span v-for="(star, index) in generateStars(infoTvSeries.vote_average)" :key="index" class="fa-solid" :class="star"></span>                    
-        </li>
-        <li><strong>Overview: </strong>{{ infoTvSeries.overview }}</li>
-    </ul>
-
-
-</template> -->
-
 <template>
-    <div class="card-container" :style="{ backgroundImage: `url(https://image.tmdb.org/t/p/w342${infoTvSeries.poster_path})` }">
+    <div class="card-container" :style="{ backgroundImage: getBackgroundImage() }">
         <div class="info-box">
             <ul class="info">
                 <li><strong>Titolo:</strong>{{ infoTvSeries.name }}</li>
