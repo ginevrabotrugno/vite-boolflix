@@ -24,7 +24,7 @@ export default {
         resultTvSeriesNum(){
             return store.tvSeriesList.length
         },
-    }
+    },
 }
 </script>
 

@@ -54,6 +54,7 @@ export default {
         store.tvSeriesList = res.data.results;
         store.searchInput = '';
       })
+      
       .catch(err => {
           console.log(err);
       })

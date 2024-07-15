@@ -1,9 +1,17 @@
 <script>
 import fallbackPoster from '../assets/fallback-poster.png';
 
+// import di axios
+import axios from 'axios';
+
 export default {
     name: 'AppTvSeriesCard,',
     props: ['infoTvSeries'],
+    data(){
+        return {
+            tvSeriesCast: [],
+        }
+    },
     methods: {
         getFlagClass(language) {
         // Mappa delle lingue alle classi delle bandiere
@@ -47,9 +55,22 @@ export default {
             return this.infoTvSeries.poster_path 
                 ? `url(https://image.tmdb.org/t/p/w342${this.infoTvSeries.poster_path})`
                 : `url(${fallbackPoster})`;
-        }         
-
+        },
+        getCast(id){
+            axios.get(`https://api.themoviedb.org/3/tv/${id}/credits?api_key=6d80c7fc6fb3c8cde8ea957eacd0ae7c&language=it-IT`)
+            .then(res => {
+                // console.log(res.data.cast.slice(0, 5));
+                this.tvSeriesCast = res.data.cast.slice(0, 5);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+    },
+    mounted() {
+        this.getCast(this.infoTvSeries.id);
     }
+         
 }
 </script>
 
@@ -67,6 +88,16 @@ export default {
                     <span v-for="(star, index) in generateStars(infoTvSeries.vote_average)" :key="index" class="fa-solid" :class="star"></span>                    
                 </li>
                 <li><strong>Overview: </strong>{{ infoTvSeries.overview }}</li>
+                <li>
+                    <strong>Cast: </strong>
+                    <ul class="cast">
+                        <li v-for="(actor, i) in tvSeriesCast" :key="i">
+                            {{ actor.name }}, 
+                        </li>
+                    </ul>
+
+                </li>
+
             </ul>
         </div>
     </div>
@@ -110,6 +141,13 @@ export default {
         
         .fa-star {
             color: gold;
+        }
+
+        .cast {
+                
+            li {
+                display: inline;
+            }
         }
     }
 }
