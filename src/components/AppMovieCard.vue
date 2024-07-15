@@ -10,6 +10,7 @@ export default {
     data(){
         return {
             movieCast: [],
+            genresMap: {},  // Per memorizzare la mappa dei generi
         }
     },
     methods: {
@@ -65,10 +66,25 @@ export default {
             .catch(err => {
                 console.log(err);
             })
+        },
+        getGenres() {
+            axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=6d80c7fc6fb3c8cde8ea957eacd0ae7c')
+            .then(res => {
+                res.data.genres.forEach(genre => {
+                    this.genresMap[genre.id] = genre.name;
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        },
+        getGenreNames(genreIds) {
+            return genreIds.map(id => this.genresMap[id]).join(', ');
         }
     },
     mounted() {
         this.getCast(this.infoMovie.id);
+        this.getGenres(); // Recupera i generi quando il componente è montato
     }
     
 }
@@ -98,6 +114,7 @@ export default {
                     </ul>
 
                 </li>
+                <li><strong>Generi: </strong>{{ getGenreNames(infoMovie.genre_ids) }}</li>
             </ul>
         </div>
      </div>
@@ -146,7 +163,7 @@ export default {
             }
 
             .cast {
-                
+
                 li {
                     display: inline;
                 }
